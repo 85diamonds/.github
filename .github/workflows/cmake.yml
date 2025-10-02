@@ -1,0 +1,17 @@
+# Utility workflow, not needed, but useful sometimes
+name: "cmake"
+
+on: [ workflow_dispatch, workflow_call ] # look, reusable code
+
+jobs:
+ cmake:
+  runs-on: "ubuntu-latest"
+  steps:
+   - uses: "actions/checout@v4"
+   - name: "build makefiles"
+     run: |
+      sudo apt install cmake
+      mkdir -p build
+      cmake -S . -B build
+   - name: "compile with makefiles"
+     run: make -C build
